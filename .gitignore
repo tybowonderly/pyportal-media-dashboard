@@ -1,0 +1,9 @@
+secrets.py
+settings.json
+lib/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+pi-aggregator/.env
+pi-aggregator/.venv/

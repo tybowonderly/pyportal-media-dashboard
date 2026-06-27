@@ -1,0 +1,9 @@
+services:
+  stats-aggregator:
+    build: .
+    container_name: pyportal-stats
+    restart: unless-stopped
+    ports:
+      - "8765:8765"
+    env_file:
+      - .env
