@@ -10,11 +10,11 @@ cp .env.example .env
 ./up.sh
 ```
 
-Or manually:
+Or manually (use `sudo` if you get permission denied on the Docker socket):
 
 ```bash
-docker compose up -d --build      # Compose v2 (plugin)
-docker-compose up -d --build      # legacy standalone
+sudo docker compose up -d --build      # snap or Compose v2 plugin
+sudo docker-compose up -d --build      # legacy standalone
 ```
 
 Verify:
@@ -24,27 +24,45 @@ curl http://localhost:8765/health
 curl http://localhost:8765/stats
 ```
 
+## Permission denied on `/var/run/docker.sock`?
+
+Your user is not allowed to talk to Docker yet. Either use `sudo`:
+
+```bash
+sudo docker compose up -d --build
+```
+
+Or add yourself to the `docker` group (log out and back in afterward):
+
+```bash
+sudo usermod -aG docker "$USER"
+# snap installs may also need:
+sudo snap connect docker:docker-daemon
+```
+
 ## Docker Compose not installed?
 
-Raspberry Pi OS often ships Docker without the `compose` plugin. Install one of these:
+**Snap (includes Compose v2):**
 
-**Option A — Compose plugin (recommended):**
+```bash
+sudo snap install docker
+sudo docker compose up -d --build
+```
+
+**Debian/Raspberry Pi OS apt packages:**
 
 ```bash
 sudo apt update
 sudo apt install docker-compose-plugin
-docker compose version
+sudo docker compose up -d --build
 ```
 
-**Option B — Standalone docker-compose:**
+Legacy standalone:
 
 ```bash
-sudo apt update
 sudo apt install docker-compose
-docker-compose --version
+sudo docker-compose up -d --build
 ```
-
-Then run `./up.sh` or the matching command above.
 
 ## Without Docker
 
