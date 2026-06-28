@@ -33,11 +33,24 @@ PyPortal  ──GET /stats──►  Pi (Docker)  ──►  Overseerr / Plex / 
 On your Raspberry Pi:
 
 ```bash
-cd pi-aggregator
+git clone https://github.com/tybowonderly/pyportal-media-dashboard.git
+cd pyportal-media-dashboard/pi-aggregator
 cp .env.example .env
 # Edit .env with your service URLs and API keys
-docker compose up -d --build
+chmod +x up.sh
+./up.sh
 ```
+
+If `./up.sh` says Compose is missing, install it:
+
+```bash
+sudo apt update
+sudo apt install docker-compose-plugin   # then: docker compose up -d --build
+# or
+sudo apt install docker-compose          # then: docker-compose up -d --build
+```
+
+See [`pi-aggregator/README.md`](pi-aggregator/README.md) for details.
 
 Verify:
 
